@@ -1,0 +1,22 @@
+<view class="vendor-container">
+    <!-- 用户信息 -->
+    <view class="user-info">
+        <image class="avatar" src="{{ avatarUrl }}" mode="aspectFill" />
+        <text class="nickname">{{ nickName }}</text>
+    </view>
+
+    <!-- 摊主信息编辑区域 -->
+    <view class="vendor-edit">
+        <van-cell-group>
+            <van-field label="摊位名字" placeholder="请输入摊位名字" value="{{ vendorName }}" bind:change="onVendorNameChange" />
+            <van-field label="摊位描述" placeholder="请输入摊位描述" value="{{ vendorDescription }}" bind:change="onVendorDescriptionChange" />
+            <van-uploader file-list="{{ fileList }}" bind:delete="onDeleteFile" bind:after-read="onReadFile">
+                <van-button type="primary">上传摊位图片</van-button>
+            </van-uploader>
+        </van-cell-group>
+
+        <view class="save-button">
+            <van-button type="primary" bind:tap="saveVendorInfo">保存</van-button>
+        </view>
+    </view>
+</view>

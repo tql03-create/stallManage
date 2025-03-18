@@ -1,0 +1,29 @@
+<view class="container">
+    <!-- 搜索栏 -->
+    <van-search shape="round" placeholder="搜索商品" show-action bind:search="onSearch" bind:change="onSearchChange">
+        <view slot="action" class="search-action">
+            <van-icon name="play" size="20" bind:tap="toggleVendorStatus" />
+            <text class="vendor-status">{{ vendorStatusText }}</text>
+        </view>
+    </van-search>
+
+    <!-- 轮播图 -->
+    <van-swipe class="swipe" interval="3000" indicator-color="#fff" indicator-active-color="#000">
+        <van-swipe-item class="swipe-item" wx:for="{{ banners }}" wx:key="index">
+            <image src="{{ item }}" mode="aspectFill" />
+        </van-swipe-item>
+    </van-swipe>
+
+    <!-- 商品展示区域 -->
+    <view class="products">
+        <view class="product-list">
+            <view class="product-item" wx:for="{{ products }}" wx:key="index">
+                <image src="{{ item.image }}" mode="aspectFill" />
+                <view class="product-info">
+                    <text class="product-name">{{ item.name }}</text>
+                    <text class="product-price">¥{{ item.price }}</text>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
