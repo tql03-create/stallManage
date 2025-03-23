@@ -1,6 +1,5 @@
 {
-    "navigationBarTitleText": "首页",
-    "usingComponents": {
-        "van-search": "@vant/weapp/search/index"
-    }
-}
+    "navigationBarTitleText": "堕落街",
+    "enablePullDownRefresh": false
+  }
+  

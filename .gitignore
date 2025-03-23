@@ -16,7 +16,7 @@ $RECYCLE.BIN/
 miniprogram/node_modules/
 miniprogram/miniprogram_npm/
 miniprogram/images/
-
+miniprogram/pages/test/
 # 忽略 cloudfunctions 目录下的所有内容
 cloudfunctions/*
 

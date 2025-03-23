@@ -1,0 +1,7 @@
+<view class="container">
+  <view class="title">摊主注册</view>
+  <view class="tip">仅摊主可注册，注册前请确认拥有邀请码</view>
+  <!-- 邀请码输入框 -->
+  <input type="text" placeholder="请输入邀请码" bindinput="onInviteCodeInput" value="{{inviteCode}}" class="invite-input" />
+  <button bindtap="onRegisterTap" class="register-btn">注册</button>
+</view>

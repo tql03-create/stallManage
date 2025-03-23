@@ -1,0 +1,35 @@
+page{
+    background-color: #f8f8f8;
+}
+.container {
+    padding: 30rpx;
+    background-color: #f8f8f8;
+  }
+  .title {
+    font-size: 32rpx;
+    font-weight: bold;
+    margin-bottom: 20rpx;
+  }
+  .tip {
+    font-size: 24rpx;
+    color: #666;
+    margin-bottom: 30rpx;
+  }
+  .invite-input {
+    width: 100%;
+    border: 1rpx solid #ccc;
+    border-radius: 8rpx;
+    padding: 20rpx;
+    font-size: 28rpx;
+    margin-bottom: 30rpx;
+  }
+  .register-btn {
+    width: 100%;
+    background-color: #ff9900;
+    color: #fff;
+    padding: 20rpx;
+    border: none;
+    border-radius: 8rpx;
+    font-size: 28rpx;
+  }
+  

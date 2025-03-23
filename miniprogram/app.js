@@ -10,5 +10,7 @@ App({
         }
 
         this.globalData = {};
-    }
+    },
+
+   
 });

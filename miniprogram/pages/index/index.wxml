@@ -1,29 +1,63 @@
 <view class="container">
-    <!-- 搜索栏 -->
-    <van-search shape="round" placeholder="搜索商品" show-action bind:search="onSearch" bind:change="onSearchChange">
-        <view slot="action" class="search-action">
-            <van-icon name="play" size="20" bind:tap="toggleVendorStatus" />
-            <text class="vendor-status">{{ vendorStatusText }}</text>
-        </view>
-    </van-search>
 
-    <!-- 轮播图 -->
-    <van-swipe class="swipe" interval="3000" indicator-color="#fff" indicator-active-color="#000">
-        <van-swipe-item class="swipe-item" wx:for="{{ banners }}" wx:key="index">
-            <image src="{{ item }}" mode="aspectFill" />
-        </van-swipe-item>
-    </van-swipe>
+<!-- 顶部搜索栏 -->
+<view class="header">
+  <view class="search-bar">
+    <!-- <image class="search-icon" src="/assets/icon_search.png" mode="aspectFit" /> -->
+    <icon type="search" class="search-icon"/>
+    <input 
+      class="search-input" 
+      placeholder="搜索关键词（如：饭）" 
+      confirm-type="search"
+      bindconfirm="onSearchConfirm"
+      bindinput="onSearchInput"
+    />
+  </view>
+  <!-- 右侧头像按钮，用于摊主注册或登录 -->
+  <view class="owner-avatar" bindtap="onOwnerAvatarTap">
+    <image class="avatar-icon" src="../../images/icons/vendor.png" mode="aspectFit" />
+  </view>
+</view>
 
-    <!-- 商品展示区域 -->
-    <view class="products">
-        <view class="product-list">
-            <view class="product-item" wx:for="{{ products }}" wx:key="index">
-                <image src="{{ item.image }}" mode="aspectFill" />
-                <view class="product-info">
-                    <text class="product-name">{{ item.name }}</text>
-                    <text class="product-price">¥{{ item.price }}</text>
-                </view>
-            </view>
-        </view>
+<!-- 出摊与否状态模块 -->
+<view wx:if="{{isOwner && myStall}}" class="stall-info">
+    <text class="stall-name">{{myStall.stallName}}</text>
+    <text class="stall-status">{{ myStall.isClosed ? '休息中' : '出摊中' }}</text>
+  </view>
+
+<!-- 轮播图 -->
+<view class="swiper-container">
+  <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{3000}}" duration="{{500}}">
+    <block wx:for="{{carouselImages}}" wx:key="index">
+      <swiper-item>
+        <image class="swiper-image" src="{{item}}" mode="aspectFill"></image>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+
+<!-- 出摊中的摊位标题 -->
+<view class="section-title">美食摊位</view>
+
+<!-- 摊位卡片列表 -->
+<view class="stall-list">
+  <block wx:for="{{filteredStalls}}" wx:key="id">
+    <view class="stall-card {{item.isClosed ? 'closed' : ''}}"  data-id="{{item.id}}">
+      <view class="avatar-container">
+        <image class="avatar" src="{{item.avatar}}" mode="aspectFill"></image>
+        <!-- 如果打烊则显示“休息中” -->
+        <view class="resting" wx:if="{{item.isClosed}}">休息中</view>
+      </view>
+      <view class="stall-info">
+        <view class="stall-name">{{item.name}}</view>
+        <view class="stall-desc">{{item.desc}}</view>
+      </view>
     </view>
+  </block>
+</view>
+
+<!-- 右下角 出摊/收摊 切换按钮 -->
+<button class="toggle-btn" bindtap="onToggleStallStatus">
+  {{toggleStallText}}
+</button>
 </view>

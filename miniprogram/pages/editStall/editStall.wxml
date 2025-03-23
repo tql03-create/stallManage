@@ -1,0 +1,16 @@
+<view class="container">
+  <view class="form-item">
+    <text class="label">摊位名称</text>
+    <input class="input" placeholder="请输入摊位名称" bindinput="onStallNameInput" value="{{stallName}}" />
+  </view>
+  <view class="form-item">
+    <text class="label">摊位描述</text>
+    <textarea class="textarea" placeholder="请输入摊位描述" bindinput="onStallDescInput">{{stallDesc}}</textarea>
+  </view>
+  <view class="form-item">
+    <text class="label">摊位图片</text>
+    <button class="upload-btn" bindtap="onUploadImage">上传图片</button>
+    <image wx:if="{{stallImage}}" class="stall-image" src="{{stallImage}}" mode="aspectFit" />
+  </view>
+  <button class="save-btn" bindtap="onSaveStall">保存</button>
+</view>
