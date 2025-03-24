@@ -3,9 +3,7 @@ Page({
         userInfo: null,
         myStall: null,
         carouselImages: [
-            '../../images/banners/banner-1.jpg',
-            '../../images/banners/banner-2.jpg',
-            '../../images/banners/banner-3.jpg',
+            
         ],
         toggleStallText: '出摊',
         // 只保留一个stalls数组，通过计算属性获取过滤后的结果
@@ -30,9 +28,29 @@ Page({
             this.setData({ userInfo });
             await this.getMyStallInfo();
         }
-        await this.getAllStalls();
+        await Promise.all([
+            this.getAllStalls(),
+            this.getBanners()  // 新增获取轮播图
+        ]);
     },
-
+    // 新增获取轮播图方法
+    async getBanners() {
+        try {
+            const { result } = await wx.cloud.callFunction({
+                name: 'getBanners'
+            });
+            if (result.code === 0) {
+                // 根据 order 排序后再转换为图片地址数组
+                const sortedBanners = result.data.sort((a, b) => a.order - b.order);
+                console.log(sortedBanners)
+                this.setData({
+                    carouselImages: sortedBanners.map(item => item.imageUrl)
+                });
+            }
+        } catch (error) {
+            console.error('获取轮播图失败:', error);
+        }
+    },
     // 获取我的摊位信息
     async getMyStallInfo() {
         try {

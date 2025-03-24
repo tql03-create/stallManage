@@ -34,7 +34,7 @@
 
 <!-- 轮播图 -->
 <view class="swiper-container">
-  <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{3000}}" duration="{{500}}">
+  <swiper circular="{{true}}"  indicator-dots="{{true}}" autoplay="{{true}}" interval="{{3000}}" duration="{{500}}">
     <block wx:for="{{carouselImages}}" wx:key="index">
       <swiper-item>
         <image class="swiper-image" src="{{item}}" mode="aspectFill"></image>
