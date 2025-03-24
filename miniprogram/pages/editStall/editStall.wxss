@@ -1,42 +1,143 @@
 .container {
-    padding: 20px;
-  }
-  .form-item {
-    margin-bottom: 20px;
-  }
-  .label {
-    display: block;
-    margin-bottom: 5px;
-    color: #333;
-  }
-  .input, .textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  .textarea {
-    height: 100px;
-  }
-  .upload-btn {
-    padding: 10px;
-    background-color: #1aad19;
-    color: #fff;
-    text-align: center;
-    border-radius: 5px;
-  }
-  .stall-image {
-    width: 100%;
-    height: 200px;
-    margin-top: 10px;
-    border: 1px solid #ccc;
-  }
-  .save-btn {
-    width: 100%;
-    padding: 10px;
-    background-color: #1aad19;
-    color: #fff;
-    text-align: center;
-    border-radius: 5px;
+    min-height: 100vh;
+    background: #f8f8f8;
+    padding-bottom: 40rpx;
   }
   
+  /* 用户信息样式 */
+  .user-info {
+    background: #fff;
+    padding: 40rpx 30rpx;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20rpx;
+    box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+  }
+  
+  .user-avatar {
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 50%;
+    margin-right: 24rpx;
+  }
+  
+  .user-name {
+    font-size: 32rpx;
+    color: #333;
+    font-weight: 500;
+  }
+  
+  /* 表单容器 */
+  .form-container {
+    background: #fff;
+    padding: 30rpx;
+    border-radius: 16rpx;
+    margin: 0 20rpx;
+    box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+  }
+  
+  .form-item {
+    margin-bottom: 40rpx;
+  }
+  
+  .label {
+    display: block;
+    font-size: 28rpx;
+    color: #333;
+    margin-bottom: 16rpx;
+    font-weight: 500;
+  }
+  
+  .input {
+    width: 100%;
+    height: 88rpx;
+    background: #f5f7fa;
+    border-radius: 8rpx;
+    padding: 0 24rpx;
+    font-size: 28rpx;
+    box-sizing: border-box;
+  }
+  
+  .textarea {
+    width: 100%;
+    height: 200rpx;
+    background: #f5f7fa;
+    border-radius: 8rpx;
+    padding: 20rpx 24rpx;
+    font-size: 28rpx;
+    box-sizing: border-box;
+  }
+  
+  /* 图片上传区域 */
+  .image-uploader {
+    width: 240rpx;
+    height: 240rpx;
+    background: #f5f7fa;
+    border-radius: 8rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #999;
+  }
+  
+  .icon-add {
+    font-size: 48rpx;
+    margin-bottom: 12rpx;
+  }
+  
+  .upload-text {
+    font-size: 24rpx;
+  }
+  
+  .stall-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 8rpx;
+  }
+  
+  /* 保存按钮 */
+  .save-btn {
+    width: 90%;
+    height: 88rpx;
+    background: #07c160;
+    color: #fff;
+    font-size: 32rpx;
+    border-radius: 44rpx;
+    margin: 60rpx auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+  }
+  
+  .save-btn:active {
+    opacity: 0.9;
+  }
+
+  .text-content {
+    font-size: 28rpx;
+    color: #333;
+    line-height: 1.6;
+    padding: 20rpx 0;
+  }
+  
+  .edit-btn {
+    width: 90%;
+    height: 88rpx;
+    background: #f0f0f0;
+    color: #333;
+    font-size: 32rpx;
+    border-radius: 44rpx;
+    margin: 60rpx auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+  }

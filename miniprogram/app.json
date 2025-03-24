@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/register/register",
-    "pages/editStall/editStall"
+    "pages/editStall/editStall",
+    "pages/stallDetail/stallDetail"
   ],
   "window": {
     "navigationBarTitleText": "校园小吃街"

@@ -1,0 +1,36 @@
+<view class="container">
+  <!-- 用户信息展示 -->
+  <view class="user-info">
+    <image class="user-avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill"></image>
+    <text class="user-name">{{userInfo.nickName}}</text>
+  </view>
+
+  <!-- 摊位信息展示 -->
+  <view class="stall-container">
+    <view class="stall-header">
+      <view class="stall-title">{{stallInfo.stallName}}</view>
+      <view class="stall-status {{stallInfo.isOpen ? 'open' : 'closed'}}">
+        {{stallInfo.isOpen ? '出摊中' : '已打烊'}}
+      </view>
+    </view>
+
+    <view class="stall-content">
+      <view class="stall-image-wrapper">
+        <image class="stall-image" src="{{stallInfo.stallImage}}" mode="aspectFill"></image>
+      </view>
+      
+      <view class="stall-desc">
+        <text class="desc-label">摊位描述</text>
+        <text class="desc-content">{{stallInfo.stallDesc}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-buttons">
+    <button class="edit-btn" bindtap="onEdit">编辑摊位</button>
+    <button class="toggle-btn {{stallInfo.isOpen ? 'open' : ''}}" bindtap="onToggleStatus">
+      {{stallInfo.isOpen ? '收摊' : '出摊'}}
+    </button>
+  </view>
+</view>
