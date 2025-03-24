@@ -97,10 +97,7 @@ page{
     color: #333;
 }
 
-/** 摊位卡片列表 **/
-.stall-list {
-    /* 这里可以根据需求添加布局设置，比如grid或flex */
-}
+
 
 /** 摊位卡片 **/
 .stall-card {

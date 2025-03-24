@@ -11,6 +11,7 @@ Page({
         // 只保留一个stalls数组，通过计算属性获取过滤后的结果
         stalls: [],
         searchKeyword: '', // 新增搜索关键词状态
+        filteredStalls: []
     },
 
     async onLoad() {
@@ -19,6 +20,7 @@ Page({
 
     async onShow() {
         await this.loadPageData();
+       
     },
 
     // 统一的数据加载方法
@@ -54,16 +56,14 @@ Page({
             const { result } = await wx.cloud.callFunction({
                 name: 'getAllStalls'
             });
-            // console.log(result.code)
             if (result.code === 0) {
-                // 修改排序逻辑：营业中的排在前面
                 const sortedStalls = result.data.sort((a, b) => {
                     if (a.isOpen === b.isOpen) return 0;
                     return a.isOpen ? -1 : 1;
                 });
                 this.setData({ 
                     stalls: sortedStalls,
-                    filteredStalls: sortedStalls  // 初始化时也设置过滤后的列表
+                    filteredStalls: sortedStalls // 初始化过滤结果
                 });
             }
         } catch (error) {
@@ -76,32 +76,21 @@ Page({
     },
 
     // 获取过滤后的摊位列表
-    getFilteredStalls() {
-        const keyword = this.data.searchKeyword;
-        if (!keyword) {
-            return this.data.stalls || [];
-        }
-        
-        return this.data.stalls.filter(item => 
+   
+    // 实时输入
+
+    handleSearch(e) {
+        const value = e.detail.value.trim();
+        this.setData({ searchKeyword: value });
+        this.updateFilteredStalls(value);
+    },
+    updateFilteredStalls(keyword) {
+        const filtered = !keyword ? this.data.stalls : this.data.stalls.filter(item => 
             item.stallName.toLowerCase().includes(keyword.toLowerCase()) || 
             item.stallDesc.toLowerCase().includes(keyword.toLowerCase())
         );
+        this.setData({ filteredStalls: filtered });
     },
-
-    // 实时输入搜索
-    onSearchInput(e) {
-        const value = e.detail.value.trim();
-        this.setData({ searchKeyword: value });
-    },
-
-    // 点击键盘"搜索"按钮
-    onSearchConfirm(e) {
-        const value = e.detail.value.trim();
-        this.setData({ searchKeyword: value });
-    },
-
-   
-    
 
     async onOwnerAvatarTap() {
         const userInfo = wx.getStorageSync('userInfo');

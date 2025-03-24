@@ -9,8 +9,8 @@
       class="search-input" 
       placeholder="搜索关键词（如：饭）" 
       confirm-type="search"
-      bindconfirm="onSearchConfirm"
-      bindinput="onSearchInput"
+      bindconfirm="handleSearch"
+      bindinput="handleSearch"
     />
   </view>
   <!-- 右侧头像按钮，用于摊主注册或登录 -->
@@ -52,7 +52,7 @@
 <view class="stall-list">
   
   
-    <block wx:for="{{ stalls }}" wx:key="_id">
+    <block wx:for="{{ filteredStalls }}" wx:key="_id">
       <view class="stall-card {{!item.isOpen ? 'closed' : ''}}" data-id="{{item._id}}">
         <view class="avatar-container">
           <image class="avatar" src="{{item.stallImage}}" mode="aspectFill"></image>
