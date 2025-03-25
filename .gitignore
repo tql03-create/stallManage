@@ -13,20 +13,11 @@ $RECYCLE.BIN/
 # Node.js
 
 # 忽略 miniprogram 目录下的 node_modules 文件夹
-miniprogram/node_modules/
-miniprogram/miniprogram_npm/
-miniprogram/images/
-miniprogram/pages/test/
+
 
 
 # 忽略项目根目录下的特定文件
-project.config.json
-project.private.config.json
-uploadCloudFunction.sh
-README.md
-package-lock.json
-package.json
-sitemap.json
+
 
 # 忽略其他可能不需要被版本控制的文件
 .DS_Store
