@@ -1,36 +1,50 @@
-<view class="container">
+<view class="container" wx:if="{{!loading}}">
   <!-- 用户信息展示 -->
-  <view class="user-info">
-    <image class="user-avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill"></image>
-    <text class="user-name">{{userInfo.nickName}}</text>
+  <view class="user-info" role="banner" aria-label="用户信息">
+    <image class="user-avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill" aria-label="用户头像"></image>
+    <text class="user-name" aria-label="用户昵称">{{userInfo.nickName}}</text>
   </view>
 
   <!-- 摊位信息展示 -->
-  <view class="stall-container">
+  <view class="stall-container" role="main" aria-label="摊位信息">
     <view class="stall-header">
-      <view class="stall-title">{{stallInfo.stallName}}</view>
-      <view class="stall-status {{stallInfo.isOpen ? 'open' : 'closed'}}">
+      <view class="stall-title" aria-label="摊位名称">{{stallInfo.stallName}}</view>
+      <view class="stall-status {{stallInfo.isOpen ? 'open' : 'closed'}}" role="status" aria-label="营业状态">
         {{stallInfo.isOpen ? '出摊中' : '已打烊'}}
       </view>
     </view>
 
     <view class="stall-content">
       <view class="stall-image-wrapper">
-        <image class="stall-image" src="{{stallInfo.stallImage}}" mode="aspectFill"></image>
+        <image class="stall-image" src="{{stallInfo.stallImage}}" mode="aspectFill" aria-label="摊位图片"></image>
       </view>
       
-      <view class="stall-desc">
-        <text class="desc-label">摊位描述</text>
-        <text class="desc-content">{{stallInfo.stallDesc}}</text>
+      <view class="stall-desc" role="article">
+        <text class="desc-label" aria-hidden="true">摊位描述</text>
+        <text class="desc-content" aria-label="摊位描述内容">{{stallInfo.stallDesc}}</text>
       </view>
     </view>
   </view>
 
   <!-- 操作按钮 -->
-  <view class="action-buttons">
-    <button class="edit-btn" bindtap="onEdit">编辑摊位</button>
-    <button class="toggle-btn {{stallInfo.isOpen ? 'open' : ''}}" bindtap="onToggleStatus">
+  <view class="action-buttons" role="group" aria-label="操作按钮">
+    <button 
+      class="edit-btn" 
+      bindtap="onEdit" 
+      aria-disabled="{{stallInfo.isOpen}}"
+      aria-label="编辑摊位{{stallInfo.isOpen ? '，当前不可编辑' : ''}}">
+      编辑摊位
+    </button>
+    <button 
+      class="toggle-btn {{stallInfo.isOpen ? 'open' : ''}}" 
+      bindtap="onToggleStatus"
+      aria-label="{{stallInfo.isOpen ? '收摊' : '出摊'}}">
       {{stallInfo.isOpen ? '收摊' : '出摊'}}
     </button>
   </view>
+</view>
+
+<!-- 加载状态 -->
+<view class="loading" wx:if="{{loading}}" role="alert" aria-label="正在加载">
+  <text>加载中...</text>
 </view>

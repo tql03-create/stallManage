@@ -1,0 +1,72 @@
+<view class="container" role="main">
+  <!-- 邀请码验证部分 -->
+  <block wx:if="{{!isCodeVerified}}">
+    <view class="title" role="heading" aria-level="1">摊主注册</view>
+    <view class="tip" aria-live="polite">仅摊主可注册，注册前请向管理员索要邀请码</view>
+    <input 
+      type="number" 
+      placeholder="请输入邀请码" 
+      bindinput="onInviteCodeInput" 
+      value="{{inviteCode}}" 
+      class="invite-input"
+      aria-label="邀请码输入框"
+      role="textbox"
+    />
+    <button 
+      bindtap="onVerifyCode" 
+      class="verify-btn" 
+      loading="{{isVerifying}}"
+      disabled="{{isVerifying}}"
+      aria-busy="{{isVerifying}}"
+      role="button"
+    >验证邀请码</button>
+  </block>
+
+  <!-- 获取用户信息部分 -->
+  <block wx:if="{{isCodeVerified}}">
+    <view class="title" role="heading" aria-level="1">完善信息</view>
+    <view class="tip" aria-live="polite">请填写您的头像和昵称</view>
+    
+    <view class="user-info-form" role="form" aria-label="用户信息表单">
+      <!-- 头像选择器 -->
+      <button 
+        class="avatar-wrapper" 
+        open-type="chooseAvatar" 
+        bind:chooseavatar="onChooseAvatar"
+        aria-label="选择头像"
+        role="button"
+      >
+        <image 
+          class="avatar" 
+          src="{{userInfo.avatarUrl || '../../images/icons/vendor.png'}}" 
+          mode="aspectFit"
+          aria-hidden="true"
+        />
+      </button>
+      <text class="avatar-tip" aria-live="polite">点击头像更换</text>
+      
+      <!-- 昵称输入框 -->
+      <view class="nickname-wrapper" role="group" aria-label="昵称输入区域">
+        <text class="nickname-label">昵称</text>
+        <input 
+          type="nickname" 
+          class="nickname-input" 
+          placeholder="请输入昵称" 
+          bindinput="onInputNickname" 
+          value="{{userInfo.nickName}}"
+          aria-label="昵称输入框"
+          role="textbox"
+        />
+      </view>
+    </view>
+    
+    <button 
+      bindtap="onGetUserProfile" 
+      class="login-btn"
+      disabled="{{isSubmitting}}"
+      loading="{{isSubmitting}}"
+      aria-busy="{{isSubmitting}}"
+      role="button"
+    >确认并注册</button>
+  </block>
+</view>

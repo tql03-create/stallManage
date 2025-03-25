@@ -3,18 +3,24 @@ Page({
         inviteCode: '',
         isCodeVerified: false,
         isVerifying: false,
-        userInfo: {}
+        userInfo: {},
+        isSubmitting: false
     },
 
     onInviteCodeInput(e) {
+        const code = e.detail.value.trim();
         this.setData({
-            inviteCode: e.detail.value
+            inviteCode: code
         });
     },
 
     async onVerifyCode() {
-        if (!this.data.inviteCode) {
-            wx.showToast({ title: '请输入邀请码', icon: 'none' });
+        if (!this.data.inviteCode || this.data.inviteCode.length < 6) {
+            wx.showToast({ title: '请输入有效的邀请码', icon: 'none' });
+            return;
+        }
+
+        if (this.data.isVerifying) {
             return;
         }
 
@@ -44,6 +50,9 @@ Page({
             this.setData({ isVerifying: false });
         }
     },
+
+
+
     // 在Page对象中添加这两个方法
     onChooseAvatar(e) {
         const { avatarUrl } = e.detail;
@@ -51,31 +60,21 @@ Page({
         this.setData({
             'userInfo.avatarUrl': avatarUrl
         });
-    
-        // 只存储必要的信息
-        const userInfoToStore = {
-            avatarUrl: avatarUrl,
-            nickName: this.data.userInfo.nickName || ''
-        };
-        wx.setStorageSync('userInfo', userInfoToStore);
     },
-    
+
     onInputNickname(e) {
         const nickName = e.detail.value;
         // 只保存昵称
         this.setData({
             'userInfo.nickName': nickName
         });
-    
-        // 只存储必要的信息
-        const userInfoToStore = {
-            avatarUrl: this.data.userInfo.avatarUrl || '',
-            nickName: nickName
-        };
-        wx.setStorageSync('userInfo', userInfoToStore);
     },
     async onGetUserProfile() {
         try {
+            if (this.data.isSubmitting) {
+                return;
+            }
+
             // 1. 检查必要信息
             if (!this.data.userInfo.avatarUrl || !this.data.userInfo.nickName) {
                 wx.showToast({
@@ -84,33 +83,57 @@ Page({
                 });
                 return;
             }
-    
+
+            if (!this.data.userInfo.nickName.trim()) {
+                wx.showToast({
+                    title: '昵称不能为空',
+                    icon: 'none'
+                });
+                return;
+            }
+
+            this.setData({ isSubmitting: true });
+            wx.setStorageSync('userInfo', {
+                avatarUrl: this.data.userInfo.avatarUrl,
+                nickName: this.data.userInfo.nickName
+            });
+
             // 2. 准备要传递的用户信息（只包含必要字段）
             const userInfoToRegister = {
                 nickName: this.data.userInfo.nickName,
                 avatarUrl: this.data.userInfo.avatarUrl
             };
-    
+
             // 3. 调用注册云函数
             const registerResult = await wx.cloud.callFunction({
                 name: 'registerUser',
                 data: {
                     userInfo: userInfoToRegister
-                    
                 }
             });
-    
+
             // 4. 处理返回结果
             if (registerResult.result) {
                 if (registerResult.result.code === 0) {  // 注册成功
+                    console.log('注册返回数据:', registerResult.result);
                     wx.showToast({
                         title: '注册成功',
                         icon: 'success'
                     });
+               
+                    
                     setTimeout(() => {
-                        wx.navigateTo({
-                            url: '/pages/editStall/editStall'
+                        // 直接跳转编辑页并关闭当前页面
+                        wx.redirectTo({
+                            url: '/pages/stallEdit/stallEdit'
                         });
+                        
+                        // 手动清空页面栈中注册相关页面
+                        const pages = getCurrentPages();
+                        while(pages.length > 1 && 
+                            pages[pages.length-1].route.includes('userRegister')) {
+                            pages.pop();
+                        }
                     }, 1500);
                 } else if (registerResult.result.code === 1) {  // 用户已存在
                     wx.showToast({
@@ -129,13 +152,15 @@ Page({
                     });
                 }
             }
-    
+
         } catch (error) {
             console.error('注册失败:', error);
             wx.showToast({
                 title: '注册失败，请重试',
                 icon: 'none'
             });
+        } finally {
+            this.setData({ isSubmitting: false });
         }
     }
 });

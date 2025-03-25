@@ -1,25 +1,14 @@
 {
-  "pages": [
-    "pages/index/index",
-    "pages/register/register",
-    "pages/editStall/editStall",
-    "pages/stallDetail/stallDetail"
-  ],
-  "window": {
-    "navigationBarTitleText": "校园小吃街"
-  },
-  "style": "v2",
-  "cloud": true,
-  "env": {
-    "cloud": {
-      "envId": "cloud1-8gtrx5qheeed07c3"
-    }
-  },
-  "cloudfunctionRoot": "cloudfunctions/",
-  "cloudfunction": {
-    "registerUser": {
-      "name": "registerUser",
-      "path": "cloudfunctions/registerUser"
-    }
+    "pages": [
+      "pages/index/index",
+      "pages/stallEdit/stallEdit",
+      "pages/stallDetail/stallDetail",
+      "pages/userRegister/userRegister"
+    ],
+    "window": {
+      "navigationBarTitleText": "校园小吃街"
+    },
+    "style": "v2",
+    "cloud": true
   }
-}
+  

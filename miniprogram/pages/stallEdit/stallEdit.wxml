@@ -9,17 +9,17 @@
   <view class="form-container">
     <view class="form-item">
       <text class="label">摊位名称</text>
-      <input class="input" placeholder="给你的摊位起个名字吧" bindinput="onStallNameInput" value="{{stallName}}" />
+      <input class="input" placeholder="给你的摊位起个名字吧" bindinput="handleStallNameInput" value="{{stallName}}" aria-label="摊位名称输入框" />
     </view>
 
     <view class="form-item">
       <text class="label">摊位描述</text>
-      <textarea class="textarea" placeholder="介绍一下你的摊位特色" bindinput="onStallDescInput" value="{{stallDesc}}"></textarea>
+      <textarea class="textarea" placeholder="介绍一下你的摊位特色" bindinput="handleStallDescInput" value="{{stallDesc}}" aria-label="摊位描述输入框"></textarea>
     </view>
 
     <view class="form-item">
       <text class="label">摊位图片</text>
-      <view class="image-uploader" bindtap="onUploadImage">
+      <view class="image-uploader" bindtap="handleImageUpload" role="button" aria-label="上传摊位图片">
         <image wx:if="{{stallImage}}" class="stall-image" src="{{stallImage}}" mode="aspectFill" />
         <view wx:else class="upload-placeholder">
           <text class="iconfont icon-add"></text>
@@ -29,5 +29,5 @@
     </view>
   </view>
 
-  <button class="save-btn" bindtap="onSaveStall">保存摊位</button>
+  <button class="save-btn" bindtap="handleSaveStall" aria-label="保存摊位信息">保存摊位</button>
 </view>

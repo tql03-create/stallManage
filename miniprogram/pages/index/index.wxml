@@ -2,33 +2,32 @@
 
 <!-- 顶部搜索栏 -->
 <view class="header">
-  <view class="search-bar">
-    <!-- <image class="search-icon" src="/assets/icon_search.png" mode="aspectFit" /> -->
-    <icon type="search" class="search-icon"/>
+  <view class="search-bar" role="search">
+    <icon type="search" class="search-icon" aria-hidden="true"/>
     <input 
       class="search-input" 
       placeholder="搜索关键词（如：饭）" 
       confirm-type="search"
       bindconfirm="handleSearch"
       bindinput="handleSearch"
+      aria-label="搜索摊位"
     />
   </view>
   <!-- 右侧头像按钮，用于摊主注册或登录 -->
- <view class="owner-avatar" bindtap="onOwnerAvatarTap">
+ <view class="owner-avatar" bindtap="onOwnerAvatarTap" role="button" aria-label="摊主中心">
   <image 
     class="avatar-icon" 
     src="{{userInfo && userInfo.avatarUrl ? userInfo.avatarUrl : '../../images/icons/vendor.png'}}" 
     mode="aspectFill" 
+    aria-hidden="true"
   />
 </view>
 </view>
 
-<!-- 出摊与否状态模块 -->
-<!-- 出摊与否状态模块 -->
-<!-- 出摊与否状态模块 -->
-<view wx:if="{{userInfo && myStall}}" class="stall-info">
+<!-- 摊位状态模块 -->
+<view wx:if="{{userInfo && myStall}}" class="stall-info" role="status" aria-label="摊位状态">
   <text class="stall-name">{{myStall.stallName}}</text>
-  <text class="stall-status">{{ !myStall.isOpen ? '休息中' : '出摊中' }}</text>
+  <text class="stall-status" aria-live="polite">{{ !myStall.isOpen ? '休息中' : '出摊中' }}</text>
 </view>
 
 
@@ -46,17 +45,23 @@
 <!-- 出摊中的摊位标题 -->
 <view class="section-title">美食摊位</view>
 
-<!-- 摊位卡片列表 -->
-<!-- 摊位卡片列表 -->
-<!-- 摊位卡片列表 -->
-<view class="stall-list">
-  
-  
+<!-- 摊位列表 -->
+<view class="stall-list" role="list" aria-label="摊位列表">
     <block wx:for="{{ filteredStalls }}" wx:key="_id">
-      <view class="stall-card {{!item.isOpen ? 'closed' : ''}}" data-id="{{item._id}}">
+      <view 
+        class="stall-card {{!item.isOpen ? 'closed' : ''}}" 
+        data-id="{{item._id}}" 
+        role="listitem"
+        aria-label="{{item.stallName}}{{!item.isOpen ? '，休息中' : '，营业中'}}"
+      >
         <view class="avatar-container">
-          <image class="avatar" src="{{item.stallImage}}" mode="aspectFill"></image>
-          <view class="resting" wx:if="{{!item.isOpen}}">休息中</view>
+          <image 
+            class="avatar" 
+            src="{{item.stallImage}}" 
+            mode="aspectFill"
+            aria-hidden="true"
+          ></image>
+          <view class="resting" wx:if="{{!item.isOpen}}" aria-hidden="true">休息中</view>
         </view>
         <view class="stall-info">
           <view class="stall-name">{{item.stallName}}</view>

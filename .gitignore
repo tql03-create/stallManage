@@ -17,8 +17,7 @@ miniprogram/node_modules/
 miniprogram/miniprogram_npm/
 miniprogram/images/
 miniprogram/pages/test/
-# 忽略 cloudfunctions 目录下的所有内容
-cloudfunctions/*
+
 
 # 忽略项目根目录下的特定文件
 project.config.json

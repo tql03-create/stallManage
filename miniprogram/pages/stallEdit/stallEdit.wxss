@@ -1,7 +1,9 @@
+/* 页面容器 */
 .container {
     min-height: 100vh;
     background: #f8f8f8;
     padding-bottom: 40rpx;
+    box-sizing: border-box;
   }
   
   /* 用户信息样式 */
@@ -121,14 +123,16 @@
     opacity: 0.9;
   }
 
-  .text-content {
+  /* 文本内容样式 */
+.text-content {
     font-size: 28rpx;
     color: #333;
     line-height: 1.6;
     padding: 20rpx 0;
   }
   
-  .edit-btn {
+/* 编辑按钮样式 */
+.edit-btn {
     width: 90%;
     height: 88rpx;
     background: #f0f0f0;
@@ -140,4 +144,9 @@
     align-items: center;
     justify-content: center;
     font-weight: 500;
+    transition: opacity 0.2s ease;
+  }
+
+.edit-btn:active {
+    opacity: 0.9;
   }
