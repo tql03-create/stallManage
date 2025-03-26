@@ -6,10 +6,14 @@
       "pages/userRegister/userRegister"
     ],
     "window": {
-      "navigationBarTitleText": "校园小吃街"
+      "navigationBarTitleText": "堕落街",
+      "navigationBarBackgroundColor": "#f1f1f1",
+      "navigationBarTextStyle": "black"
     },
     "style": "v2",
     "cloud": true,
-    "lazyCodeLoading": "requiredComponents"
+    "lazyCodeLoading": "requiredComponents",
+    "enableShareTimeline": true,
+    "enableShareAppMessage": true
   }
   

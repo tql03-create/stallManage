@@ -250,5 +250,21 @@ Page({
                 icon: 'none'
             });
         }
+    },
+    // 在 Page 对象中添加
+onShareAppMessage: function() {
+    return {
+      title: '校园小吃街 - 发现美味摊位',
+      path: '/pages/index/index',
+      imageUrl: '../../images/icons/eating.jpg'
     }
+  },
+  
+  onShareTimeline: function() {
+    return {
+      title: '校园小吃街 - 发现美味摊位',
+      query: '',
+      imageUrl: '../../images/icons/eating.jpg'
+    }
+  }
 });

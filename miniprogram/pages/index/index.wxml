@@ -27,7 +27,7 @@
 <!-- 摊位状态模块 -->
 <view wx:if="{{userInfo && myStall}}" class="stall-info" role="status" aria-label="摊位状态">
   <text class="stall-name">{{myStall.stallName}}</text>
-  <text class="stall-status" aria-live="polite">{{ !myStall.isOpen ? '休息中' : '出摊中' }}</text>
+  <text class="stall-status {{myStall.isOpen ? 'open' : 'closed'}}"  aria-live="polite">{{ !myStall.isOpen ? '休息中' : '出摊中' }}</text>
 </view>
 
 
@@ -47,6 +47,7 @@
 
 <!-- 摊位列表 -->
 <view class="stall-list" role="list" aria-label="摊位列表">
+    <block wx:if="{{filteredStalls.length > 0}}">
     <block wx:for="{{ filteredStalls }}" wx:key="_id">
       <view 
         class="stall-card {{!item.isOpen ? 'closed' : ''}}" 
@@ -69,11 +70,16 @@
         </view>
       </view>
     </block>
-  
+</block>
+<view wx:else class="empty-list" role="status" aria-label="暂无摊位">
+        <image class="empty-icon" src="../../images/icons/empty.jpeg" mode="aspectFit"></image>
+
+    </view>
 </view>
 
+
 <!-- 右下角 出摊/收摊 切换按钮 -->
-<button wx:if="{{userInfo}}" class="toggle-btn" bindtap="onToggleStallStatus">
+<button wx:if="{{userInfo}}" class="toggle-btn {{myStall.isOpen ? 'open' : ''}}"  bindtap="onToggleStallStatus">
   {{toggleStallText}}
 </button>
 </view>
