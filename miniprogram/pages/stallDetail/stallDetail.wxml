@@ -3,6 +3,9 @@
   <view class="user-info" role="banner" aria-label="用户信息">
     <image class="user-avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill" aria-label="用户头像"></image>
     <text class="user-name" aria-label="用户昵称">{{userInfo.nickName}}</text>
+    <view class="logout-btn" bindtap="onLogout" role="button" aria-label="注销账号">
+      <text class="logout-text">注销</text>
+    </view>
   </view>
 
   <!-- 摊位信息展示 -->

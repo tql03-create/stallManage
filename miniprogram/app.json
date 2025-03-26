@@ -9,6 +9,7 @@
       "navigationBarTitleText": "校园小吃街"
     },
     "style": "v2",
-    "cloud": true
+    "cloud": true,
+    "lazyCodeLoading": "requiredComponents"
   }
   

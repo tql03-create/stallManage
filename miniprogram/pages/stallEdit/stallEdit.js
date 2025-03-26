@@ -17,7 +17,49 @@ Page({
         isEdit: false,      // 编辑模式标识
         isSubmitting: false // 防重复提交标识
     },
+    onLogout() {
+        wx.showModal({
+            title: '确认注销',
+            content: '注销后需要重新注册，确定要继续吗？',
+            confirmColor: '#ff4d4f',
+            success: async (res) => {
+                if (res.confirm) {
+                    try {
+                        wx.showLoading({ title: '注销中...' });
 
+                        // 调用云函数删除用户数据
+                        const { result } = await wx.cloud.callFunction({
+                            name: 'logoutUser'
+                        });
+
+                        if (result.code === 0) {
+                            // 清除本地存储
+                            wx.removeStorageSync('userInfo');
+
+                            wx.showToast({
+                                title: '注销成功',
+                                icon: 'success'
+                            });
+
+                            // 跳转到首页
+                            setTimeout(() => {
+                                wx.reLaunch({
+                                    url: '/pages/index/index'
+                                });
+                            }, 1500);
+                        } else {
+                            throw new Error(result.message || '注销失败');
+                        }
+                    } catch (error) {
+                        console.error('注销失败:', error);
+                        this.showErrorToast('注销失败，请重试');
+                    } finally {
+                        wx.hideLoading();
+                    }
+                }
+            }
+        });
+    },
     /**
      * 处理摊位名称输入
      * @param {Object} e - 输入事件对象
@@ -55,7 +97,7 @@ Page({
             wx.showLoading({
                 title: '上传中...'
             });
-           
+
             // 生成唯一的云存储路径
             const cloudPath = `stall/${Date.now()}-${Math.random().toString(36).slice(-6)}.jpg`;
             const { fileID } = await wx.cloud.uploadFile({
@@ -82,11 +124,11 @@ Page({
     async onLoad(options) {
         // 从URL参数获取编辑模式状态
         const isEdit = options.isEdit === 'true';
-        
+
         // 获取用户信息
         const userInfo = wx.getStorageSync('userInfo');
         if (userInfo) {
-            this.setData({ 
+            this.setData({
                 userInfo,
                 isEdit
             });

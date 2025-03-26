@@ -8,7 +8,49 @@ Page({
     stallInfo: {},
     loading: true
   },
-
+  onLogout() {
+    wx.showModal({
+      title: '确认注销',
+      content: '注销后需要重新注册，确定要继续吗？',
+      confirmColor: '#ff4d4f',
+      success: async (res) => {
+        if (res.confirm) {
+          try {
+            wx.showLoading({ title: '注销中...' });
+            
+            // 调用云函数删除用户数据
+            const { result } = await wx.cloud.callFunction({
+              name: 'logoutUser'
+            });
+            
+            if (result.code === 0) {
+              // 清除本地存储
+              wx.removeStorageSync('userInfo');
+              
+              wx.showToast({
+                title: '注销成功',
+                icon: 'success'
+              });
+              
+              // 跳转到首页
+              setTimeout(() => {
+                wx.reLaunch({
+                  url: '/pages/index/index'
+                });
+              }, 1500);
+            } else {
+              throw new Error(result.message || '注销失败');
+            }
+          } catch (error) {
+            console.error('注销失败:', error);
+            this.handleError('注销失败', error.message);
+          } finally {
+            wx.hideLoading();
+          }
+        }
+      }
+    });
+  },
   onLoad: async function() {
     try {
       const userInfo = wx.getStorageSync('userInfo');

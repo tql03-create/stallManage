@@ -115,7 +115,7 @@ Page({
             // 4. 处理返回结果
             if (registerResult.result) {
                 if (registerResult.result.code === 0) {  // 注册成功
-                    console.log('注册返回数据:', registerResult.result);
+                    // console.log('注册返回数据:', registerResult.result);
                     wx.showToast({
                         title: '注册成功',
                         icon: 'success'

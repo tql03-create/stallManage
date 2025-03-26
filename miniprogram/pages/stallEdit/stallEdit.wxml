@@ -1,8 +1,11 @@
 <view class="container">
-  <!-- 用户信息展示 -->
+   <!-- 用户信息展示 -->
   <view class="user-info">
     <image class="user-avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill"></image>
     <text class="user-name">{{userInfo.nickName}}</text>
+    <view class="logout-btn" bindtap="onLogout" role="button" aria-label="注销账号">
+      <text class="logout-text">注销</text>
+    </view>
   </view>
 
   <!-- 摊位信息表单 -->
