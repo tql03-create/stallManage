@@ -191,7 +191,7 @@ Page({
                     if (this.data.isEdit) {
                         wx.navigateBack();
                     } else {
-                        wx.redirectTo({
+                        wx.reLaunch({
                             url: '/pages/index/index'
                         });
                     }
