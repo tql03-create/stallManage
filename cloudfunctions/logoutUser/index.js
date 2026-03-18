@@ -1,0 +1,52 @@
+// 云函数入口文件
+const cloud = require('wx-server-sdk')
+
+cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV })
+const db = cloud.database()
+
+// 云函数入口函数
+exports.main = async (event, context) => {
+  const wxContext = cloud.getWXContext()
+  const openid = wxContext.OPENID
+  
+  try {
+    // 1. 查询用户信息
+    const userResult = await db.collection('users').where({
+      _openid: openid
+    }).get()
+    
+    if (userResult.data.length === 0) {
+      return {
+        code: 1,
+        message: '用户不存在'
+      }
+    }
+    
+    const user = userResult.data[0]
+    
+    // 2. 查询用户的摊位信息
+    const stallResult = await db.collection('stalls').where({
+      _openid: openid
+    }).get()
+    
+    // 3. 删除用户摊位信息
+    if (stallResult.data.length > 0) {
+      const stallId = stallResult.data[0]._id
+      await db.collection('stalls').doc(stallId).remove()
+    }
+    
+    // 4. 删除用户信息
+    await db.collection('users').doc(user._id).remove()
+    
+    return {
+      code: 0,
+      message: '注销成功'
+    }
+  } catch (error) {
+    console.error('注销失败:', error)
+    return {
+      code: -1,
+      message: '注销失败: ' + error.message
+    }
+  }
+}
