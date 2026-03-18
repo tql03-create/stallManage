@@ -22,3 +22,4 @@ $RECYCLE.BIN/
 # 忽略其他可能不需要被版本控制的文件
 .DS_Store
 *.log
+系统文档.docx
